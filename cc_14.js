@@ -38,6 +38,45 @@ function createSupportTicket(id, name, issueDescription, priorityLevel) {
     })
 
     ticket.appendChild(resolveButton); 
+
+    // Task 5: Add an event listener to each support ticket (or an edit button within it) that on double-click, swaps static content with input fields
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit"; 
+    editButton.addEventListener("click", () => {
+        // Pre-populate the input fields with the existing customer name, issue, and priority level
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.value = customerName.textContent;
+        
+        const issueInput = document.createElement("input");
+        issueInput.type = "text";
+        issueInput.value = issue.textContent;
+
+        const priorityInput = document.createElement("input");
+        priorityInput.type = "text";
+        priorityInput.value = priority.textContent; 
+        
+        // Add a "Save" button that updates the ticket with the new values
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.addEventListener("click", () => {
+            customerName.textContent = nameInput.value;
+            issue.textContent = issueInput.value;
+            priority.textContent = priorityInput.value; 
+            ticket.replaceChild(customerName, nameInput);
+            ticket.replaceChild(issue, issueInput);
+            ticket.replaceChild(priority, priorityInput); 
+            ticket.replaceChild(ticket.querySelector("button:last-child"), saveButton);
+        });
+        
+        // Ensure the updated details are reflected, and the inputs revert back to static text
+        ticket.replaceChild(nameInput, customerName);
+        ticket.replaceChild(issueInput, issue);
+        ticket.replaceChild(priorityInput, priority); 
+        ticket.replaceChild(saveButton, ticket.querySelector("button:last-child"));
+    })
+
+    ticket.appendChild(editButton);
     
     // Append the support ticket to "ticketContainer" using appendChild
     ticketContainer.appendChild(ticket); 
@@ -73,4 +112,7 @@ highPriorityTickets.forEach(ticket => {
 ticketContainer.addEventListener("click", () => {
     console.log("Ticket Container Clicked"); 
 })
+
+
+// Task 5: Additional Challenge – Inline Editing of Support Tickets
 
