@@ -19,6 +19,7 @@ function createSupportTicket(id, name, issueDescription, priorityLevel) {
     issue.textContent = issueDescription; 
     const priority = document.createElement("label"); // A label indicating priority level
     priority.textContent = priorityLevel; 
+    priority.setAttribute("class","priority-level"); 
     
     ticket.appendChild(customerName);
     ticket.appendChild(issue);
@@ -36,6 +37,24 @@ function createSupportTicket(id, name, issueDescription, priorityLevel) {
     
 // Add new customer support tickets to the dashboard
 createSupportTicket("customer1", "Alice Johnson", "Unable to reset password", "High");
-createSupportTicket("customer2", "Bob Smith", "Page not loading correctly", "Medium");
+createSupportTicket("customer2", "Bob Smith", "Page not loading correctly", "High");
 createSupportTicket("customer3", "Charlie Davis", "Feature request for dark mode", "Low");
+
+
+// Task 3: Converting NodeLists to Arrays for Bulk Updates
+
+// Use document.querySelectorAll to select all tickets with a "High" priority class and convert the NodeList into an array using Array.from() 
+ticketsList = document.querySelectorAll(".customer-ticket"); 
+tickets = Array.from(ticketsList); 
+const highPriorityTickets = tickets.filter(ticket => {
+    const priorityLabel = ticket.querySelector(".priority-level"); // Find the priority label inside the ticket
+    return priorityLabel && priorityLabel.textContent === "High"; // Check if the priority is "high"
+});
+
+
+// Use an array method (e.g., .forEach()) to update the appearance of high-priority tickets (e.g., change background color or add a border)
+highPriorityTickets.forEach(ticket => {
+    ticket.style.backgroundColor = "lightpink";
+    ticket.style.border = "2px solid red";
+})
 
