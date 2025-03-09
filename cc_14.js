@@ -29,6 +29,14 @@ function createSupportTicket(id, name, issueDescription, priorityLevel) {
     const resolveButton = document.createElement("button");
     resolveButton.textContent = "Resolve"; 
 
+    // Task 4: Attach a click event listener to the "Resolve" button that removes its parent ticket using removeChild
+    resolveButton.addEventListener("click", (event) => {
+        ticketContainer.removeChild(ticket); 
+
+        // Task 4: Use stopPropagation() to prevent the event from bubbling up to the container
+        event.stopPropagation(); 
+    })
+
     ticket.appendChild(resolveButton); 
     
     // Append the support ticket to "ticketContainer" using appendChild
@@ -56,5 +64,13 @@ const highPriorityTickets = tickets.filter(ticket => {
 highPriorityTickets.forEach(ticket => {
     ticket.style.backgroundColor = "lightpink";
     ticket.style.border = "2px solid red";
+})
+
+
+// Task 4: Implementing Ticket Resolution with Event Bubbling
+
+// Attach a click event listener to "ticketContainer" that logs a message when any ticket is clicked.
+ticketContainer.addEventListener("click", () => {
+    console.log("Ticket Container Clicked"); 
 })
 
